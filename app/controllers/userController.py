@@ -93,3 +93,25 @@ def singleTransfrom(users):
         'email': users.email
     }
     return data
+
+
+# user login
+def login():
+    try:
+        email = request.json['email']
+        password = request.json['password']
+
+        user = Users.query.filter_by(email=email).first()
+        # email valid check
+        if not user:
+            return response.badRequest([], 'User not found')
+        
+        # password valid check
+        if not user.checkPassword(password):
+            return response.badRequest([], 'Invalid password')
+
+        data = singleTransfrom(user)
+        return response.ok(data, 'Welcome to Isekai')
+
+    except Exception as e:
+        print(e)

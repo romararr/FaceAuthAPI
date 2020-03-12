@@ -28,3 +28,8 @@ def userUpdate(id):
 @app.route('/users/delete/<id>', methods=['POST'])
 def userDelete(id):
     return UserController.delete(id)
+
+
+@app.route('/login', methods=['POST'])
+def login():
+    return UserController.login()
