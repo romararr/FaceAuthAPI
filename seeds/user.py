@@ -3,9 +3,8 @@ import random
 import string
 from flask_seeder import Seeder, Faker, generator
 
+
 # SQLAlchemy db model
-
-
 class User(Users):
     def __init__(self, name=None, email=None, password=None):
         self.name = name
