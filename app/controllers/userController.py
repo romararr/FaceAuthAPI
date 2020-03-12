@@ -50,7 +50,7 @@ def update(id):
         email = request.json['email']
         password = request.json['password']
 
-        user = Users.query.filter_by(id=id).first() # get user by id
+        user = Users.query.filter_by(id=id).first()  # get user by id
         user.name = name
         user.email = email
         user.setPassword(password)
@@ -62,12 +62,13 @@ def update(id):
         print(e)
 
 
+# delete user
 def delete(id):
     try:
-        user = Users.query.filter_by(id=id).first()
+        user = Users.query.filter_by(id=id).first()  # get user by id
         if not user:
             return response.badRequest([], 'User not found')
-        
+
         db.session.delete(user)
         db.session.commit()
 
@@ -75,6 +76,8 @@ def delete(id):
     except Exception as e:
         print(e)
 
+
+# transform data to array
 def transform(users):
     array = []
     for i in users:
@@ -82,6 +85,7 @@ def transform(users):
     return array
 
 
+# get single data
 def singleTransfrom(users):
     data = {
         'id': users.id,

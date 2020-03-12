@@ -11,6 +11,7 @@ app.config.from_object(Config)
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
 
+# seeders
 seeder = FlaskSeeder()
 seeder.init_app(app, db)
 
