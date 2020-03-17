@@ -77,24 +77,6 @@ def delete(id):
         print(e)
 
 
-# transform data to array
-def transform(users):
-    array = []
-    for i in users:
-        array.append(singleTransfrom(i))
-    return array
-
-
-# get single data
-def singleTransfrom(users):
-    data = {
-        'id': users.id,
-        'name': users.name,
-        'email': users.email
-    }
-    return data
-
-
 # user login
 def login():
     try:
@@ -105,7 +87,7 @@ def login():
         # email valid check
         if not user:
             return response.badRequest([], 'User not found')
-        
+
         # password valid check
         if not user.checkPassword(password):
             return response.badRequest([], 'Invalid password')
@@ -115,3 +97,31 @@ def login():
 
     except Exception as e:
         print(e)
+
+
+# transform data to array
+def transform(users):
+    array = []
+    for i in users:
+        array.append(singleTransfrom(i))
+    return array
+
+
+# get single data
+def singleTransfrom(users, withOrder=True):
+    data = {
+        'id': users.id,
+        'name': users.name,
+        'email': users.email
+    }
+
+    # if withOrder:
+    #     orders = []
+    #     for i in users.orders:
+    #         orders.append({
+    #             'id': i.id,
+    #             'orderId': i.orderId,
+    #         })
+    #     data['orders'] = orders
+        
+    return data
