@@ -1,6 +1,8 @@
 from app.models.user import Users
 from app import response, app, db
 from flask import request
+from flask_jwt_extended import *
+import datetime
 
 
 # get all data
@@ -93,7 +95,17 @@ def login():
             return response.badRequest([], 'Invalid password')
 
         data = singleTransfrom(user)
-        return response.ok(data, 'Welcome to Isekai')
+
+        exp = datetime.timedelta(days=1)
+        exp_refresh = datetime.timedelta(days=3)
+        access_token = create_access_token(data, fresh=True, expires_delta=exp)
+        refresh_token = create_refresh_token(data, expires_delta=exp_refresh)
+
+        return response.ok({
+            "data": data,
+            "token_access": access_token,
+            "token_refresh": refresh_token
+        }, 'Welcome to Isekai')
 
     except Exception as e:
         print(e)
@@ -123,5 +135,5 @@ def singleTransfrom(users, withOrder=True):
     #             'orderId': i.orderId,
     #         })
     #     data['orders'] = orders
-        
+
     return data

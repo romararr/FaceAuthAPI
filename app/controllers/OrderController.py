@@ -3,8 +3,10 @@ from app.models.order import Orders as Order
 from app.models.orderStuff import OrderStuff as Stuff
 from app.controllers import UserController
 from flask import request, jsonify
+from flask_jwt_extended import *
 
 
+@jwt_required
 def index():
     try:
         userId = request.args.get('userId')
